@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/zzpierce/decimal"
+	decimal "github.com/zzpierce/fast-decimal"
 )
 
 func evaluate(input string) (decimal.Decimal, error) {
