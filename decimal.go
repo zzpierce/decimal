@@ -663,7 +663,7 @@ func (d Decimal) Int64(scale int) (whole, frac int64, ok bool) {
 	x := d.coef
 	y := pow10[d.Scale()]
 	if scale < d.Scale() {
-		x = x.rshHalfEven(d.Scale() - scale)
+		x = x.rshHalfUp(d.Scale() - scale)
 		y = pow10[scale]
 	}
 	p := x / y
@@ -1010,7 +1010,7 @@ func (d Decimal) Round(scale int) Decimal {
 		return d
 	}
 	coef := d.coef
-	coef = coef.rshHalfEven(d.Scale() - scale)
+	coef = coef.rshHalfUp(d.Scale() - scale)
 	return newUnsafe(d.IsNeg(), coef, scale)
 }
 

@@ -145,6 +145,27 @@ func (x fint) rshHalfEven(shift int) fint {
 	return z
 }
 
+func (x fint) rshHalfUp(shift int) fint {
+	// Special cases
+	switch {
+	case x == 0:
+		return 0
+	case shift <= 0:
+		return x
+	case shift >= len(pow10):
+		return 0
+	}
+	// General case
+	y := pow10[shift]
+	z := x / y
+	r := x - z*y           // r = x % y
+	y = y >> 1             // y = y / 2, which is safe as y is a multiple of 10
+	if y < r || (y == r) { // half-to-even
+		z++
+	}
+	return z
+}
+
 // rshUp (Right Shift) calculates x / 10^shift and rounds result away from zero.
 func (x fint) rshUp(shift int) fint {
 	// Special cases
